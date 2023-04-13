@@ -1,0 +1,178 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hero {
+  background-image: url("./assets/images/header_bgimage.png");
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1rem;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.form {
+  background-color: #f2f2f2;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.form label {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 2rem;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.form button[type="submit"] {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form button[type="submit"]:hover {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+#weather-info {
+  padding: 30px;
+  font-size: 1.5rem;
+  line-height: 1;
+  text-align: center;
+}
+
+#weather-info p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+#outfits {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#outfits img {
+  max-width: 90%;
+  height: auto;
+  align-self: center;
+  justify-self: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: gainsboro;
+  letter-spacing: 1px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Exo 2", sans-serif;
+  font-size: 10px;
+  padding: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+  /* adjust styles for smaller screens */
+  .hero {
+    height: 300px;
+    background-image: url("./assets/images/header_bgimage.png");
+    /* add other styles here as needed */
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .form {
+    padding: 20px;
+  }
+
+  .form label {
+    font-size: 1.5rem;
+  }
+
+  .form input[type="text"] {
+    font-size: 1rem;
+  }
+
+  .form button[type="submit"] {
+    padding: 5px 10px;
+    font-size: 1rem;
+  }
+
+  #weather-info {
+    padding: 20px;
+    font-size: 1rem;
+  }
+
+  footer {
+    font-size: 8px;
+    padding: 5px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  /* adjust styles for medium screens */
+  .hero {
+    height: 400px;
+    /* add other styles here as needed */
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  /* CSS for Samsung Galaxy A51/A71 */
+  .weather-info {
+    text-align: center;
+  }
+
+  .outfit-image {
+    display: block;
+    margin: 0 auto;
+  }
+}
