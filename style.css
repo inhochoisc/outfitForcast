@@ -5,7 +5,7 @@
 }
 
 .hero {
-  background-image: url("./assets/images/header_bgimage.png");
+  background-image: url("./assets/images/header_bgimage_yellow.png");
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -81,17 +81,19 @@
   margin-bottom: 20px;
 }
 
-#outfits {
+#container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center;
+  text-align: center; */
+  /* max-width: 100%; */
 }
 
-#outfits img {
+#outfits {
   max-width: 90%;
-  height: auto;
-  align-self: center;
-  justify-self: center;
+  /* height: auto; */
+  /* align-self: center;
+  justify-self: center; */
 }
 
 footer a {
@@ -113,7 +115,7 @@ footer {
   /* adjust styles for smaller screens */
   .hero {
     height: 300px;
-    background-image: url("./assets/images/header_bgimage.png");
+    background-image: url("./assets/images/header_bgimage_yellow.png");
     /* add other styles here as needed */
   }
 
