@@ -4,10 +4,13 @@ app.apiKey = "273da19803c78dcc36cee2c53a5b7520";
 
 //Load data from API when submit button is clicked
 app.handleOnFormSubmit = () => {
-  $("#search-form").submit(function (e) {
+  const $searchForm = $("#search-form");
+
+  $searchForm.submit(function (e) {
     e.preventDefault();
 
-    const city = $("#city").val();
+    const $cityInput = $("#city");
+    const city = $cityInput.val();
 
     app.getWeatherInfoDetails(city);
   });
@@ -38,37 +41,37 @@ app.getCurrentMonth = () => {
 
 //Fetch data in weather-info section
 app.renderWeatherInfo = (data) => {
-  console.log(data);
+  // console.log(data);
 
-  const weatherInfo = $("#weather-info");
+  const $weatherInfo = $("#weather-info");
   const cityName = data.name;
   const description = data.weather[0].description;
   const temp = Math.round(data.main.temp); //omit number under the decimal point
-  const feel_like_temp = Math.round(data.main.feels_like);
-  const windSpeed = Math.round(data.wind.speed);
+  const feel_like_temp = Math.round(data.main.feels_like); //omit number under the decimal point
+  const windSpeed = Math.round(data.wind.speed); //omit number under the decimal point
 
   const descriptionCap =
     data.weather[0].description.charAt(0).toUpperCase() +
     data.weather[0].description.slice(1);
 
-  weatherInfo.empty();
+  $weatherInfo.empty();
 
-  // Insert weather information and current time into result sections
-  $("<h1>").text(cityName).appendTo(weatherInfo);
-  $("<h3>").text(descriptionCap).appendTo(weatherInfo).css("color", "#231942");
-  $("<h3>").text(`Temperature: ${temp}°C`).appendTo(weatherInfo);
-  $("<p>").text(`Feels like: ${feel_like_temp}°C`).appendTo(weatherInfo);
-  $("<p>").text(`Wind speed: ${windSpeed} m/s`).appendTo(weatherInfo);
+  // Insert weather information and current time into #weather-info sections
+  $("<h1>").text(cityName).appendTo($weatherInfo);
+  $("<h3>").text(descriptionCap).appendTo($weatherInfo).css("color", "#231942");
+  $("<h3>").text(`Temperature: ${temp}°C`).appendTo($weatherInfo);
+  $("<p>").text(`Feels like: ${feel_like_temp}°C`).appendTo($weatherInfo);
+  $("<p>").text(`Wind speed: ${windSpeed} m/s`).appendTo($weatherInfo);
 };
 
-//Fetch outfit image in outfits section
+//Fetch outfit image in #outfits section
 app.displayOutfitInfo = (data) => {
   const monthForOutfit = app.getCurrentMonth(); //Jan = 0 ~ Dec = 11
   const descriptionForOutfit = data.weather[0].main; //Rain or Snow
   const tempForOutfit = data.main.temp;
 
-  const outfits = $("#outfits");
-  outfits.empty();
+  const $outfits = $("#outfits");
+  $outfits.empty();
 
   let imageSrc = "";
 
@@ -100,7 +103,7 @@ app.displayOutfitInfo = (data) => {
       }
   }
 
-  outfits.attr("src", imageSrc);
+  $outfits.attr("src", imageSrc);
 };
 
 app.init = () => {
