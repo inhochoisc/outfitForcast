@@ -9,69 +9,56 @@ app.handleOnFormSubmit = () => {
 
     const city = $("#city").val();
 
-    $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${app.apiKey}`,
-      method: "GET",
-      dataType: "json",
-    })
-      .then((data) => {
-        app.displayWeatherInfo(data);
-        app.displayOutfitInfo(data);
-      })
-      .catch((xhr, status, error) => {
-        alert(`Error: ${error}`);
-      });
+    app.getWeatherInfoDetails(city);
   });
 };
 
-app.getCurrentTime = () => {
-  const date = new Date();
-
-  const formattedTime = date.toLocaleString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-    month: "short",
-    day: "numeric",
-  });
-  console.log(formattedTime);
-
-  return formattedTime;
+//Get weather information from the API
+app.getWeatherInfoDetails = (city) => {
+  $.ajax({
+    url: `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${app.apiKey}`,
+    method: "GET",
+    dataType: "json",
+  })
+    .then((res) => {
+      app.renderWeatherInfo(res);
+      app.displayOutfitInfo(res);
+    })
+    .catch((xhr, status, error) => {
+      alert(`Error: ${error}`);
+    });
 };
 
 app.getCurrentMonth = () => {
   const date = new Date();
-
   const currentMonthNum = date.getMonth();
 
   return currentMonthNum;
 };
 
-//Fetch data in results section
-app.displayWeatherInfo = (data) => {
+//Fetch data in weather-info section
+app.renderWeatherInfo = (data) => {
   console.log(data);
-  const currentTime = app.getCurrentTime();
 
-  const results = $("#results");
+  const weatherInfo = $("#weather-info");
   const cityName = data.name;
   const description = data.weather[0].description;
   const temp = Math.round(data.main.temp); //omit number under the decimal point
   const feel_like_temp = Math.round(data.main.feels_like);
   const windSpeed = Math.round(data.wind.speed);
-  console.log(windSpeed);
-  results.empty();
+
   const descriptionCap =
     data.weather[0].description.charAt(0).toUpperCase() +
     data.weather[0].description.slice(1);
 
-  // Insert weather information and current time into result sections
-  $("<h2>").text(cityName).appendTo(results);
+  weatherInfo.empty();
 
-  $("<p>").text(`Now ${currentTime}`).appendTo(results).css("color", "gray");
-  $("<p>").text(descriptionCap).appendTo(results);
-  $("<h3>").text(`Temperature: ${temp}°C`).appendTo(results);
-  $("<h5>").text(`Feels like: ${feel_like_temp}°C`).appendTo(results);
-  $("<p>").text(`Wind speed: ${windSpeed} m/s`).appendTo(results);
+  // Insert weather information and current time into result sections
+  $("<h1>").text(cityName).appendTo(weatherInfo);
+  $("<h3>").text(descriptionCap).appendTo(weatherInfo).css("color", "#231942");
+  $("<h3>").text(`Temperature: ${temp}°C`).appendTo(weatherInfo);
+  $("<p>").text(`Feels like: ${feel_like_temp}°C`).appendTo(weatherInfo);
+  $("<p>").text(`Wind speed: ${windSpeed} m/s`).appendTo(weatherInfo);
 };
 
 //Fetch outfit image in outfits section
@@ -80,15 +67,40 @@ app.displayOutfitInfo = (data) => {
   const descriptionForOutfit = data.weather[0].main; //Rain or Snow
   const tempForOutfit = data.main.temp;
 
-  console.log(monthForOutfit);
-  console.log(descriptionForOutfit, tempForOutfit);
-
   const outfits = $("#outfits");
   outfits.empty();
 
-  if (monthForOutfit === 3) {
-    outfits.append("<img src = 'assets/images/typicalSpringFall.png' >");
+  let imageSrc = "";
+
+  switch (descriptionForOutfit) {
+    case "Rain":
+      imageSrc =
+        monthForOutfit >= 5 && monthForOutfit <= 7
+          ? "assets/images/rainSummer.png"
+          : "assets/images/rainSpringFall.png";
+      break;
+    case "Snow":
+      imageSrc = "assets/images/snow.png";
+      break;
+    default:
+      if (tempForOutfit >= 30) {
+        imageSrc = "assets/images/superHot.png";
+      } else if (tempForOutfit >= 25) {
+        imageSrc = "assets/images/hot.png";
+      } else if (tempForOutfit >= 20) {
+        imageSrc = "assets/images/warm.png";
+      } else if (tempForOutfit >= 15) {
+        imageSrc = "assets/images/mild.png";
+      } else if (tempForOutfit >= 10) {
+        imageSrc = "assets/images/cool.png";
+      } else if (tempForOutfit >= 0) {
+        imageSrc = "assets/images/cold.png";
+      } else {
+        imageSrc = "assets/images/freezing.png";
+      }
   }
+
+  outfits.attr("src", imageSrc);
 };
 
 app.init = () => {
@@ -101,6 +113,6 @@ $(() => {
 }); //end of doc.ready
 
 //footer
-$("#footerInfo").html(
-  `<a href= https://junocollege.com/ target = "_blank">Created @ Juno College</a>`
+$("footer").html(
+  `<a href= https://junocollege.com/ target = "_blank">Inho Choi  |  Created @ Juno College</a>`
 );

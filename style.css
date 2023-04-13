@@ -5,28 +5,22 @@
 }
 
 .hero {
-  background-image: url("./assets/images/header_bgimage_yellow.png");
+  background-image: url("./assets/images/header_bgimage_icon.png");
   background-size: cover;
   background-position: center;
   height: 400px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  color: #fff;
   padding: 0 20px;
+  position: relative;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
-}
-
-.hero p {
-  font-size: 1rem;
+.form p {
+  font-size: 1.2rem;
+  font-style: italic;
   line-height: 1.2;
-  margin-bottom: 20px;
+  color: #4a4e69;
 }
 
 .form {
@@ -84,16 +78,10 @@
 #container {
   display: flex;
   justify-content: center;
-  /* align-items: center;
-  text-align: center; */
-  /* max-width: 100%; */
 }
 
 #outfits {
   max-width: 90%;
-  /* height: auto; */
-  /* align-self: center;
-  justify-self: center; */
 }
 
 footer a {
@@ -115,15 +103,11 @@ footer {
   /* adjust styles for smaller screens */
   .hero {
     height: 300px;
-    background-image: url("./assets/images/header_bgimage_yellow.png");
+    background-image: url("./assets/images/header_bgimage_icon.png");
     /* add other styles here as needed */
   }
 
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .hero p {
+  .form p {
     font-size: 1.2rem;
   }
 
@@ -159,16 +143,16 @@ footer {
   /* adjust styles for medium screens */
   .hero {
     height: 400px;
-    /* add other styles here as needed */
-  }
-
-  .hero h1 {
-    font-size: 3rem;
   }
 }
 
 @media only screen and (max-width: 480px) {
   /* CSS for Samsung Galaxy A51/A71 */
+
+  .form p {
+    font-size: 1rem;
+  }
+
   .weather-info {
     text-align: center;
   }
