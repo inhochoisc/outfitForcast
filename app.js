@@ -40,6 +40,7 @@ app.getCurrentMonth = () => {
   return currentMonthNum;
 };
 
+//get current time info from timezone offset data
 app.getCurrentTime = (timezone) => {
   const timezoneOffset = timezone;
   console.log(timezoneOffset);
