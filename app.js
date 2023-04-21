@@ -26,6 +26,7 @@ app.getWeatherInfoDetails = (city) => {
     .then((res) => {
       app.renderWeatherInfo(res);
       app.displayOutfitInfo(res);
+      // app.getCurrentTime(res);
     })
     .catch((xhr, status, error) => {
       alert(`Error: ${error}`);
@@ -39,16 +40,42 @@ app.getCurrentMonth = () => {
   return currentMonthNum;
 };
 
+app.getCurrentTime = (timezone) => {
+  const timezoneOffset = timezone;
+  console.log(timezoneOffset);
+
+  const now = new Date();
+  const utcTimestamp = now.getTime() + 4 * 60 * 60 * 1000;
+  const timezoneTimestamp = utcTimestamp + timezoneOffset * 1000;
+
+  const timezoneDateNew = new Date(timezoneTimestamp);
+  const options = {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  const formattedTime = timezoneDateNew.toLocaleTimeString("en-US", options);
+
+  return formattedTime;
+};
+
 //Fetch data in weather-info section
 app.renderWeatherInfo = (data) => {
-  // console.log(data);
+  console.log(data);
+  // console.log(data.timezone);
 
   const $weatherInfo = $("#weather-info");
   const cityName = data.name;
+  const currentTime = app.getCurrentTime(data.timezone);
   const description = data.weather[0].description;
   const temp = Math.round(data.main.temp); //omit number under the decimal point
   const feel_like_temp = Math.round(data.main.feels_like); //omit number under the decimal point
   const windSpeed = Math.round(data.wind.speed); //omit number under the decimal point
+
+  // const currentTime = data.
 
   const descriptionCap =
     data.weather[0].description.charAt(0).toUpperCase() +
@@ -58,6 +85,10 @@ app.renderWeatherInfo = (data) => {
 
   // Insert weather information and current time into #weather-info sections
   $("<h1>").text(cityName).appendTo($weatherInfo);
+  $("<p>")
+    .text(`Now ${currentTime}`)
+    .appendTo($weatherInfo)
+    .css("color", "gray");
   $("<h3>").text(descriptionCap).appendTo($weatherInfo).css("color", "#231942");
   $("<h3>").text(`Temperature: ${temp}°C`).appendTo($weatherInfo);
   $("<p>").text(`Feels like: ${feel_like_temp}°C`).appendTo($weatherInfo);
@@ -117,5 +148,5 @@ $(() => {
 
 //footer
 $("footer").html(
-  `<a href= https://junocollege.com/ target = "_blank">Inho Choi  |  Created @ Juno College</a>`
+  `<a href= https://junocollege.com/ target = "_blank">&copy;Inho Choi  |  Created @ Juno College</a>`
 );
