@@ -1,6 +1,6 @@
 const app = {};
 
-app.apiKey = "273da19803c78dcc36cee2c53a5b7520";
+app.apiKey = "apikey";
 
 //Load data from API when submit button is clicked
 app.handleOnFormSubmit = () => {
